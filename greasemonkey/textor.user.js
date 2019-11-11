@@ -8,6 +8,7 @@
 // @match    *://www.sexinsex.net/*
 // @match    *://www.s-dragon.org/*
 // @match    *://www.lungtan.org/*
+// @match    *://*.cool18.com/*
 // @grant    GM.getValue
 // @grant    GM.setValue
 // @grant    GM_getValue
@@ -167,6 +168,23 @@
     }
     return stxt;
   }
+  //for www.s-dragon.com/http://www.lungtan.org
+  function page_s_cool18() {
+    //all the text content is in <td class="t_f" id="postmessage_74814">
+    var stxt = "";
+    var tfs = document.getElementsByTagName('pre');
+    if(tfs.length > 0) {
+        var cnt = tfs.length;
+
+        for(var i = 0; i < cnt; i++) {
+            var ss = tfs.item(i).innerText;
+            if(ss.length > 200){
+                stxt = stxt + ss;
+            }
+        }
+    }
+    return stxt;
+  }
 
   function onSaveText() {
 
@@ -177,6 +195,8 @@
          txt = page_sis();
     } else if((hname.includes("s-dragon")) || (hname.includes("lungtan"))) {
       txt = page_s_dragon();
+    } else if(hname.includes("cool18")) {
+      txt = page_s_cool18();
     }
 
     copyToClip(txt);
